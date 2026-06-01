@@ -467,7 +467,7 @@ GameObject:
   - component: {fileID: 1267104332528915668}
   m_Layer: 0
   m_Name: Veh_Ute_Red_Z
-  m_TagString: Untagged
+  m_TagString: Vehicle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -564,7 +564,7 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
@@ -583,7 +583,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55889d02a5e884bcc9dce3117d0bd3bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoveVehicle
-  speed: 10
+  speed: 20
+  endScreenText: {fileID: 0}
 --- !u!1 &2801325797856607763
 GameObject:
   m_ObjectHideFlags: 0

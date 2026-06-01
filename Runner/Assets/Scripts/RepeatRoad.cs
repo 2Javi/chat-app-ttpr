@@ -7,10 +7,9 @@ public class RepeatRoad : MonoBehaviour
     public float resetZ = -20f;
     public float spawnZ = 20f;
     public GameObject[] obstaclePrefabs;
-    public float[] laneX = { -2.5f, -1.5f, -0.5f, 0.5f, 1.5f, 2.5f };
-    public float spawnInterval = 1.5f;
-    public float obstacleSpawnZ = 30f;
-
+    // [SerializeField] float lane0 = -24f, lane1 = 
+    public float spawnInterval = 0.5f;
+    public float obstacleSpawnZ = 1f;
     private float spawnTimer;
 
 
@@ -34,7 +33,7 @@ public class RepeatRoad : MonoBehaviour
         if (obstaclePrefabs.Length == 0) return;
 
         GameObject prefab = obstaclePrefabs[Random.Range(0, obstaclePrefabs.Length)];
-        float x = laneX[Random.Range(0, laneX.Length)];
+        float x = Random.Range(-24, 24);
         Instantiate(prefab, new Vector3(x, 0, obstacleSpawnZ), Quaternion.Euler(0, 180, 0));
     }
 }
