@@ -5,7 +5,6 @@ const chats = [
   { id: 2, name: 'Person 2', preview: 'Hey there!', avatar: 'https://api.dicebear.com/10.x/avataaars/svg?seed=Person2' },
   { id: 3, name: 'Person 3', preview: 'Game build uploading', offline: true, avatar: 'https://api.dicebear.com/10.x/avataaars/svg?seed=Person3' },
 ]
-
 const initMessages = [
   { id: 1, sender: 'Person 1', text: 'Hey, what are you doing today?', mine: false },
   { id: 2, sender: 'me', text: 'Going out, wanna join?', mine: true },
