@@ -1,14 +1,20 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using System.Runtime.InteropServices;
+
 
 public class MoveBike : MonoBehaviour
 {
+
+    [DllImport("__Internal")] private static extern void OnMessageDelivered();
+    [DllImport("__Internal")] private static extern void OnMessageFailed();
     public float speed = 5f;
     public float distancedTraveled = 0f;
 
     public float milesLeft = 2000f;
     [SerializeField] TextMeshProUGUI endScreenText;
+    private bool gameEnded = false;
 
     void Update()
     {
@@ -21,11 +27,13 @@ public class MoveBike : MonoBehaviour
         distancedTraveled += speed * Time.deltaTime;
         milesLeft -= distancedTraveled * Time.deltaTime;
 
-        if (PlayerWin())
+        if (!gameEnded && PlayerWin())
         {
+            gameEnded = true;
             endScreenText.gameObject.SetActive(true);
             endScreenText.text = "Message Delivered";
             Time.timeScale = 0;
+            OnMessageDelivered(); 
         }
     }
 
@@ -40,10 +48,12 @@ public class MoveBike : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Vehicle"))
+        if (!gameEnded && other.CompareTag("Vehicle"))
         {
+            gameEnded = true;
             endScreenText.gameObject.SetActive(true);
             endScreenText.text = "Try again";
+            OnMessageFailed();
         }
     }
 }

@@ -12,6 +12,8 @@ const initMessages = [
 ]
 
 export default function App() {
+  const [pendingMessage, setPendingMessage] = useState(null)
+  const [gameActive, setGameActive] = useState(false)
   const [activeChat, setActiveChat] = useState(chats[0])
   const [messages, setMessages] = useState(initMessages)
   const [input, setInput] = useState('')
@@ -43,12 +45,21 @@ export default function App() {
   }
 
   function sendMessage() {
-    if (!input.trim()) return
-    const now = new Date()
-    const time = `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`
-    setMessages(prev => [...prev, { id: Date.now(), sender: 'me', text: input, mine: true, time }])
-    setInput('')
+  if (!input.trim()) return
+  const msg = input.trim()
+  setPendingMessage(msg)
+  setInput('')
+  setGameActive(true)
+  window.onGameResult = (won) => {
+    if (won) {
+      const now = new Date()
+      const time = `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`
+      setMessages(prev => [...prev, { id: Date.now(), sender: 'me', text: msg, mine: true, time }])
+    }
+    setGameActive(false)
+    setPendingMessage(null)
   }
+}
 
   function switchChat(chat) {
     setShowProfilePage(false)
@@ -241,6 +252,16 @@ export default function App() {
           </div>
         </div>
       )}
+
+{gameActive && (
+  <div className="fixed inset-0 z-50 bg-black">
+    <iframe
+      src="/webgl-build/index.html"
+      className="w-full h-full border-0"
+    />
+  </div>
+)}
+
     </div>
   )
 }

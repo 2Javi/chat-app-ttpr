@@ -1,8 +1,8 @@
-
 mergeInto(LibraryManager.library, {
-  NotifyGameResult: function(isWin) {
-    if (window.onGameResult) {
-      window.onGameResult(isWin === 1);
-    }
+  OnMessageDelivered: function() {
+    if (window.parent && window.parent.onGameResult) window.parent.onGameResult(true);
+  },
+  OnMessageFailed: function() {
+    if (window.parent && window.parent.onGameResult) window.parent.onGameResult(false);
   }
 });
