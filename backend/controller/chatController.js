@@ -18,3 +18,17 @@ export const getChats = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch chats" });
   }
 };
+
+export const createChat = async (req, res) => {
+  try {
+    const { participants } = req.body;
+    const existingChat = await Chat.findOne({
+      participants: { $all: participants }
+    });
+    if (existingChat) return res.json(existingChat);
+    const newChat = await Chat.create({ participants });
+    res.status(201).json(newChat);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to create chat" });
+  }
+};
